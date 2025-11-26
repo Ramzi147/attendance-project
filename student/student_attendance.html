@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mes Présences - Université d'Alger</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="student-attendance">
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>📋 Mes Présences</h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="student_home.html" class="nav-link">Accueil</a></li>
+                <li class="nav-item"><a href="student_attendance.html" class="nav-link active">Mes Présences</a></li>
+                <li class="nav-item"><a href="#" class="nav-link logout" onclick="logout()">Déconnexion</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="page-header">
+                <h1>Mes Présences</h1>
+                <p>Consultez votre statut de présence par cours</p>
+            </div>
+
+            <!-- Statistiques améliorées -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">📚</div>
+                    <div class="stat-content">
+                        <h3>Sessions totales</h3>
+                        <div class="stat-number">6</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">✅</div>
+                    <div class="stat-content">
+                        <h3>Présences</h3>
+                        <div class="stat-number" style="color: #27ae60;">4</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">❌</div>
+                    <div class="stat-content">
+                        <h3>Absences</h3>
+                        <div class="stat-number" style="color: #e74c3c;">2</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📊</div>
+                    <div class="stat-content">
+                        <h3>Taux</h3>
+                        <div class="stat-number" style="color: #3498db;">67%</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Barre de recherche -->
+            <div class="search-container">
+                <div class="search-box">
+                    <input type="text" id="sessionSearch" placeholder="🔍 Rechercher par date, cours ou sujet...">
+                    <button class="clear-search" onclick="clearSearch()">✕</button>
+                </div>
+            </div>
+
+            <!-- Détail des sessions -->
+            <div class="sessions-detail">
+                <h3>Historique des Sessions</h3>
+                <div class="table-container">
+                    <table class="attendance-table improved-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Cours</th>
+                                <th>Sujet</th>
+                                <th>Statut</th>
+                                <th>Participation</th>
+                                <th>Justification</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="sessionsTable">
+                            <tr class="session-row present">
+                                <td>15/01/2025</td>
+                                <td>AWP</td>
+                                <td>Introduction React</td>
+                                <td><span class="status-badge present">Présent</span></td>
+                                <td><span class="participation-good">✓</span></td>
+                                <td>-</td>
+                                <td><button class="btn-small" disabled>Justifier</button></td>
+                            </tr>
+                            <tr class="session-row present">
+                                <td>22/01/2025</td>
+                                <td>AWP</td>
+                                <td>Components React</td>
+                                <td><span class="status-badge present">Présent</span></td>
+                                <td><span class="participation-good">✓</span></td>
+                                <td>-</td>
+                                <td><button class="btn-small" disabled>Justifier</button></td>
+                            </tr>
+                            <tr class="session-row absent pending">
+                                <td>29/01/2025</td>
+                                <td>AWP</td>
+                                <td>State Management</td>
+                                <td><span class="status-badge absent">Absent</span></td>
+                                <td><span class="participation-bad">✗</span></td>
+                                <td><span class="justification-pending">En attente</span></td>
+                                <td><button class="btn-small btn-warning" onclick="justifyAbsence(1)">Modifier</button></td>
+                            </tr>
+                            <tr class="session-row present">
+                                <td>05/02/2025</td>
+                                <td>AWP</td>
+                                <td>React Hooks</td>
+                                <td><span class="status-badge present">Présent</span></td>
+                                <td><span class="participation-good">✓</span></td>
+                                <td>-</td>
+                                <td><button class="btn-small" disabled>Justifier</button></td>
+                            </tr>
+                            <tr class="session-row absent">
+                                <td>12/02/2025</td>
+                                <td>AWP</td>
+                                <td>API Integration</td>
+                                <td><span class="status-badge absent">Absent</span></td>
+                                <td><span class="participation-bad">✗</span></td>
+                                <td><span class="justification-none">Non justifié</span></td>
+                                <td><button class="btn-small btn-primary" onclick="justifyAbsence(2)">Justifier</button></td>
+                            </tr>
+                            <tr class="session-row present">
+                                <td>19/02/2025</td>
+                                <td>AWP</td>
+                                <td>Projet Final</td>
+                                <td><span class="status-badge present">Présent</span></td>
+                                <td><span class="participation-good">✓</span></td>
+                                <td>-</td>
+                                <td><button class="btn-small" disabled>Justifier</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Formulaire de justification -->
+            <div class="justification-section">
+                <h3>📝 Justifier une absence</h3>
+                <form id="justificationForm" class="justification-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="sessionSelect">Session à justifier:</label>
+                            <select id="sessionSelect" required>
+                                <option value="">Choisir une session</option>
+                                <option value="1">29/01/2025 - State Management</option>
+                                <option value="2">12/02/2025 - API Integration</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="justificationType">Type de justification:</label>
+                            <select id="justificationType" required>
+                                <option value="">Choisir un type</option>
+                                <option value="medical">Médical</option>
+                                <option value="personal">Personnel</option>
+                                <option value="academic">Académique</option>
+                                <option value="other">Autre</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="justificationText">Description:</label>
+                        <textarea id="justificationText" placeholder="Expliquez les raisons de votre absence..." required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="supportingDoc">Document justificatif (optionnel):</label>
+                        <input type="file" id="supportingDoc" accept=".pdf,.jpg,.png">
+                    </div>
+                    <button type="submit" class="btn-primary">Soumettre la justification</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/student_attendance.js"></script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administration - Université d'Alger</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="admin-dashboard">
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>⚙️ Administration</h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="admin_home.html" class="nav-link active">Tableau de Bord</a></li>
+                <li class="nav-item"><a href="admin_statistics.html" class="nav-link">Statistiques</a></li>
+                <li class="nav-item"><a href="admin_students.html" class="nav-link">Gestion Étudiants</a></li>
+                <li class="nav-item"><a href="../index.html" class="nav-link logout" onclick="logout()">Déconnexion</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="dashboard-header">
+                <h1>Tableau de Bord Administrateur</h1>
+                <p>Bienvenue, <span id="adminName">Administrateur</span></p>
+            </div>
+
+            <!-- Cartes de statistiques -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">👥</div>
+                    <div class="stat-content">
+                        <h3>Total Étudiants</h3>
+                        <div class="stat-number" id="totalStudents">45</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📊</div>
+                    <div class="stat-content">
+                        <h3>Taux de Présence</h3>
+                        <div class="stat-number">87%</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">⚠️</div>
+                    <div class="stat-content">
+                        <h3>Étudiants à Risque</h3>
+                        <div class="stat-number">3</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Liste des étudiants récents -->
+            <section class="recent-students">
+                <h2>Étudiants Récemment Inscrits</h2>
+                <div class="students-list" id="recentStudentsList">
+                    <!-- Rempli dynamiquement -->
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script src="../js/admin.js"></script>
+</body>
+</html>

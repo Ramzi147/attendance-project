@@ -1,0 +1,20 @@
+[
+    {
+        "student_id": "101",
+        "name": "Sara Ahmed",
+        "group": "AWP-G1",
+        "created_at": "2025-01-15 10:00:00"
+    },
+    {
+        "student_id": "102",
+        "name": "Ali Yacine",
+        "group": "AWP-G1",
+        "created_at": "2025-01-15 10:05:00"
+    },
+    {
+        "student_id": "103",
+        "name": "Rania Houcine",
+        "group": "AWP-G1",
+        "created_at": "2025-01-15 10:10:00"
+    }
+]

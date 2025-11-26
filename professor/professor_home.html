@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Espace Professeur - Université d'Alger</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body class="professor-dashboard">
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>👨‍🏫 Espace Professeur</h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="professor_home.html" class="nav-link active">Accueil</a></li>
+                <li class="nav-item"><a href="professor_session.html" class="nav-link">Nouvelle Session</a></li>
+                <li class="nav-item"><a href="professor_attendance.html" class="nav-link">Présences</a></li>
+                <li class="nav-item"><a href="#" class="nav-link logout" onclick="logout()">Déconnexion</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="dashboard-header">
+                <h1>Bienvenue, <span id="professorName">Professeur</span> !</h1>
+                <p>Gérez les présences de vos étudiants</p>
+            </div>
+
+            <!-- Barre de recherche -->
+            <div class="search-container">
+                <div class="search-box">
+                    <input type="text" id="studentSearch" placeholder="🔍 Rechercher un étudiant par nom ou matricule...">
+                    <button class="clear-search" onclick="clearSearch()">✕</button>
+                </div>
+            </div>
+
+            <!-- Actions rapides -->
+            <div class="quick-actions">
+                <div class="action-card" onclick="createNewSession()">
+                    <div class="action-icon">➕</div>
+                    <h3>Nouvelle Session</h3>
+                    <p>Commencer une prise de présence</p>
+                </div>
+                <div class="action-card" onclick="scrollToForm()">
+                    <div class="action-icon">🎓</div>
+                    <h3>Ajouter Étudiant</h3>
+                    <p>Ajouter un nouvel étudiant</p>
+                </div>
+                <div class="action-card" onclick="viewAttendance()">
+                    <div class="action-icon">📊</div>
+                    <h3>Voir les Présences</h3>
+                    <p>Consulter les statistiques</p>
+                </div>
+            </div>
+
+            <!-- Tableau de présence -->
+            <section class="attendance-section">
+                <h2>Tableau de Présence des Étudiants</h2>
+                
+                <div class="controls">
+                    <button id="showReport" class="btn">📈 Afficher Rapport</button>
+                    <button id="highlightExcellent" class="btn">🌟 Highlight Excellents</button>
+                    <button id="resetColors" class="btn">🔄 Reset Couleurs</button>
+                </div>
+
+                <div class="table-container">
+                    <table id="professorAttendanceTable" class="attendance-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nom</th>
+                                <th>Prénom</th>
+                                <th>S1</th><th>P1</th>
+                                <th>S2</th><th>P2</th>
+                                <th>S3</th><th>P3</th>
+                                <th>S4</th><th>P4</th>
+                                <th>S5</th><th>P5</th>
+                                <th>S6</th><th>P6</th>
+                                <th>Absences</th>
+                                <th>Participations</th>
+                                <th>Message</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="attendanceTableBody">
+                            <!-- Rempli dynamiquement -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Section rapport -->
+                <div id="reportSection" class="report-section" style="display: none;">
+                    <h3>📊 Rapport de Présence</h3>
+                    <div id="reportContent"></div>
+                    <div class="chart-container">
+                        <div class="chart-bars">
+                            <div class="chart-bar total" data-tooltip="Total Étudiants: 45">
+                                <div class="bar-fill" style="height: 100%"></div>
+                                <span>Total</span>
+                            </div>
+                            <div class="chart-bar present" data-tooltip="Présents: 39 (87%)">
+                                <div class="bar-fill" style="height: 87%"></div>
+                                <span>Présents</span>
+                            </div>
+                            <div class="chart-bar participation" data-tooltip="Participation: 32 (71%)">
+                                <div class="bar-fill" style="height: 71%"></div>
+                                <span>Participation</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FORMULAIRE AJOUT ÉTUDIANT INTÉGRÉ -->
+            <section class="add-student-section">
+                <div class="section-header">
+                    <h2>🎓 Ajouter un Nouvel Étudiant</h2>
+                    <p>Remplissez les informations pour ajouter un étudiant à la classe</p>
+                </div>
+
+                <form id="addStudentForm" class="student-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="newStudentId">ID Étudiant *</label>
+                            <input type="text" id="newStudentId" placeholder="Ex: 2024001" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="newStudentEmail">Email *</label>
+                            <input type="email" id="newStudentEmail" placeholder="prenom.nom@univ-alger.dz" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="newStudentLastName">Nom *</label>
+                            <input type="text" id="newStudentLastName" placeholder="Nom de famille" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="newStudentFirstName">Prénom *</label>
+                            <input type="text" id="newStudentFirstName" placeholder="Prénom" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="newStudentFaculty">Filière</label>
+                            <select id="newStudentFaculty">
+                                <option value="info">Informatique</option>
+                                <option value="math">Mathématiques</option>
+                                <option value="physique">Physique</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="newStudentGroup">Groupe *</label>
+                            <input type="text" id="newStudentGroup" placeholder="Ex: AWP-G1" required>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Ajouter l'étudiant</button>
+                        <button type="reset" class="btn btn-secondary">Réinitialiser</button>
+                    </div>
+                </form>
+            </section>
+        </div>
+    </main>
+
+    <script src="../js/professor.js"></script>
+</body>
+</html>

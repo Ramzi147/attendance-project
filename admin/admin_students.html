@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion Étudiants - Administration</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="admin-students">
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>🎓 Gestion Étudiants</h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="admin_home.html" class="nav-link">Tableau de Bord</a></li>
+                <li class="nav-item"><a href="admin_statistics.html" class="nav-link">Statistiques</a></li>
+                <li class="nav-item"><a href="admin_students.html" class="nav-link active">Gestion Étudiants</a></li>
+                <li class="nav-item"><a href="#" class="nav-link logout" onclick="logout()">Déconnexion</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="container">
+            <!-- En-tête amélioré -->
+            <div class="page-header">
+                <div class="header-content">
+                    <h1>Gestion des Étudiants</h1>
+                    <p>Ajouter, modifier et gérer les étudiants</p>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-primary" onclick="showAddStudentModal()">
+                        <span class="btn-icon">➕</span>
+                        Ajouter Étudiant
+                    </button>
+                    <button class="btn btn-success" onclick="importStudents()">
+                        <span class="btn-icon">📥</span>
+                        Importer Excel
+                    </button>
+                    <button class="btn btn-info" onclick="exportStudents()">
+                        <span class="btn-icon">📤</span>
+                        Exporter Excel
+                    </button>
+                </div>
+            </div>
+
+            <!-- Barre de recherche et filtres améliorés -->
+            <div class="filters-section">
+                <div class="search-container">
+                    <div class="search-box">
+                        <input type="text" id="studentSearch" placeholder="🔍 Rechercher par nom, matricule, email...">
+                        <button class="clear-search" onclick="clearSearch()">✕</button>
+                    </div>
+                </div>
+                
+                <div class="filter-group">
+                    <select id="facultyFilter" class="filter-select">
+                        <option value="all">Toutes les filières</option>
+                        <option value="info">Informatique</option>
+                        <option value="math">Mathématiques</option>
+                        <option value="physique">Physique</option>
+                        <option value="chimie">Chimie</option>
+                    </select>
+                    
+                    <select id="yearFilter" class="filter-select">
+                        <option value="all">Toutes les années</option>
+                        <option value="1">1ère année</option>
+                        <option value="2">2ème année</option>
+                        <option value="3">3ème année</option>
+                    </select>
+                    
+                    <select id="statusFilter" class="filter-select">
+                        <option value="all">Tous les statuts</option>
+                        <option value="good">Bon</option>
+                        <option value="warning">Moyen</option>
+                        <option value="danger">Faible</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Tableau amélioré -->
+            <div class="table-section">
+                <div class="table-header">
+                    <h3>Liste des Étudiants</h3>
+                    <div class="table-info">
+                        <span id="studentCount">45 étudiants</span>
+                    </div>
+                </div>
+                
+                <div class="table-container">
+                    <table class="students-table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <label class="checkbox-container">
+                                        <input type="checkbox" id="selectAll">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </th>
+                                <th>Matricule</th>
+                                <th>Nom Complet</th>
+                                <th>Email</th>
+                                <th>Filière</th>
+                                <th>Groupe</th>
+                                <th>Présence</th>
+                                <th>Statut</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="studentsTable">
+                            <!-- Rempli dynamiquement -->
+                            <tr>
+                                <td>
+                                    <label class="checkbox-container">
+                                        <input type="checkbox" class="student-checkbox">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </td>
+                                <td>2024001</td>
+                                <td>
+                                    <div class="student-avatar">SA</div>
+                                    <div class="student-info">
+                                        <div class="student-name">Sara Ahmed</div>
+                                        <div class="student-details">1ère année</div>
+                                    </div>
+                                </td>
+                                <td>sara.ahmed@univ-alger.dz</td>
+                                <td><span class="faculty-badge info">Informatique</span></td>
+                                <td>AWP-G1</td>
+                                <td>
+                                    <div class="attendance-progress">
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" style="width: 87%"></div>
+                                        </div>
+                                        <span class="progress-text">87%</span>
+                                    </div>
+                                </td>
+                                <td><span class="status-badge good">Excellent</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn-icon edit" title="Modifier" onclick="editStudent('2024001')">
+                                            ✏️
+                                        </button>
+                                        <button class="btn-icon delete" title="Supprimer" onclick="deleteStudent('2024001')">
+                                            🗑️
+                                        </button>
+                                        <button class="btn-icon view" title="Voir profil" onclick="viewStudent('2024001')">
+                                            👁️
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td>
+                                    <label class="checkbox-container">
+                                        <input type="checkbox" class="student-checkbox">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </td>
+                                <td>2024002</td>
+                                <td>
+                                    <div class="student-avatar">AY</div>
+                                    <div class="student-info">
+                                        <div class="student-name">Ali Yacine</div>
+                                        <div class="student-details">2ème année</div>
+                                    </div>
+                                </td>
+                                <td>ali.yacine@univ-alger.dz</td>
+                                <td><span class="faculty-badge math">Mathématiques</span></td>
+                                <td>MATH-G2</td>
+                                <td>
+                                    <div class="attendance-progress">
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" style="width: 65%"></div>
+                                        </div>
+                                        <span class="progress-text">65%</span>
+                                    </div>
+                                </td>
+                                <td><span class="status-badge warning">Moyen</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn-icon edit" title="Modifier" onclick="editStudent('2024002')">
+                                            ✏️
+                                        </button>
+                                        <button class="btn-icon delete" title="Supprimer" onclick="deleteStudent('2024002')">
+                                            🗑️
+                                        </button>
+                                        <button class="btn-icon view" title="Voir profil" onclick="viewStudent('2024002')">
+                                            👁️
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td>
+                                    <label class="checkbox-container">
+                                        <input type="checkbox" class="student-checkbox">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </td>
+                                <td>2024003</td>
+                                <td>
+                                    <div class="student-avatar">RH</div>
+                                    <div class="student-info">
+                                        <div class="student-name">Rania Houcine</div>
+                                        <div class="student-details">3ème année</div>
+                                    </div>
+                                </td>
+                                <td>rania.houcine@univ-alger.dz</td>
+                                <td><span class="faculty-badge info">Informatique</span></td>
+                                <td>AWP-G1</td>
+                                <td>
+                                    <div class="attendance-progress">
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" style="width: 45%"></div>
+                                        </div>
+                                        <span class="progress-text">45%</span>
+                                    </div>
+                                </td>
+                                <td><span class="status-badge danger">Faible</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn-icon edit" title="Modifier" onclick="editStudent('2024003')">
+                                            ✏️
+                                        </button>
+                                        <button class="btn-icon delete" title="Supprimer" onclick="deleteStudent('2024003')">
+                                            🗑️
+                                        </button>
+                                        <button class="btn-icon view" title="Voir profil" onclick="viewStudent('2024003')">
+                                            👁️
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination améliorée -->
+                <div class="pagination">
+                    <div class="pagination-info">
+                        <span>Affichage de 1-10 sur 45 étudiants</span>
+                    </div>
+                    <div class="pagination-controls">
+                        <button class="pagination-btn prev" disabled>
+                            <span>←</span>
+                            Précédent
+                        </button>
+                        <div class="pagination-pages">
+                            <button class="page-number active">1</button>
+                            <button class="page-number">2</button>
+                            <button class="page-number">3</button>
+                            <button class="page-number">4</button>
+                            <button class="page-number">5</button>
+                        </div>
+                        <button class="pagination-btn next">
+                            Suivant
+                            <span>→</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal Ajouter Étudiant Amélioré -->
+    <div id="addStudentModal" class="modal">
+        <div class="modal-content enhanced-modal">
+            <div class="modal-header">
+                <h2>🎓 Ajouter un Nouvel Étudiant</h2>
+                <span class="close" onclick="closeModal()">&times;</span>
+            </div>
+            <form id="addStudentForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="newMatricule">
+                            <span class="label-icon">🆔</span>
+                            Matricule *
+                        </label>
+                        <input type="text" id="newMatricule" placeholder="Ex: 2024001" required>
+                        <div class="input-hint">Identifiant unique de l'étudiant</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="newEmail">
+                            <span class="label-icon">📧</span>
+                            Email *
+                        </label>
+                        <input type="email" id="newEmail" placeholder="prenom.nom@univ-alger.dz" required>
+                        <div class="input-hint">Email universitaire</div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="newFirstName">
+                            <span class="label-icon">👤</span>
+                            Prénom *
+                        </label>
+                        <input type="text" id="newFirstName" placeholder="Prénom" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="newLastName">
+                            <span class="label-icon">👤</span>
+                            Nom *
+                        </label>
+                        <input type="text" id="newLastName" placeholder="Nom de famille" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="newFaculty">
+                            <span class="label-icon">🎯</span>
+                            Filière
+                        </label>
+                        <select id="newFaculty">
+                            <option value="info">Informatique</option>
+                            <option value="math">Mathématiques</option>
+                            <option value="physique">Physique</option>
+                            <option value="chimie">Chimie</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="newGroup">
+                            <span class="label-icon">👥</span>
+                            Groupe *
+                        </label>
+                        <input type="text" id="newGroup" placeholder="Ex: AWP-G1" required>
+                        <div class="input-hint">Groupe de TD/TP</div>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">
+                        <span class="btn-icon">✓</span>
+                        Ajouter l'étudiant
+                    </button>
+                    <button type="button" class="btn btn-secondary" onclick="closeModal()">
+                        <span class="btn-icon">✕</span>
+                        Annuler
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="../js/admin.js"></script>
+</body>
+</html>

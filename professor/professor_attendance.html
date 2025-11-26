@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Présences - Professeur</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="professor-attendance">
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>📊 Historique des Présences</h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="professor_home.html" class="nav-link">Accueil</a></li>
+                <li class="nav-item"><a href="professor_session.html" class="nav-link">Nouvelle Session</a></li>
+                <li class="nav-item"><a href="professor_attendance.html" class="nav-link active">Présences</a></li>
+                <li class="nav-item"><a href="#" class="nav-link logout" onclick="logout()">Déconnexion</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="page-header">
+                <h1>Historique des Présences</h1>
+                <p>Consultez l'historique complet des sessions de présence</p>
+            </div>
+
+            <!-- Filtres -->
+            <div class="filters-section">
+                <div class="filter-group">
+                    <select id="courseFilter" class="filter-select">
+                        <option value="all">Tous les cours</option>
+                        <option value="AWP">Advanced Web Programming</option>
+                        <option value="DBMS">Database Management</option>
+                        <option value="SE">Software Engineering</option>
+                    </select>
+                    
+                    <select id="groupFilter" class="filter-select">
+                        <option value="all">Tous les groupes</option>
+                        <option value="AWP-G1">AWP-G1</option>
+                        <option value="AWP-G2">AWP-G2</option>
+                        <option value="DBMS-G1">DBMS-G1</option>
+                    </select>
+                    
+                    <select id="dateFilter" class="filter-select">
+                        <option value="all">Toutes les dates</option>
+                        <option value="today">Aujourd'hui</option>
+                        <option value="week">Cette semaine</option>
+                        <option value="month">Ce mois</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Statistiques -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">📅</div>
+                    <div class="stat-content">
+                        <h3>Sessions Total</h3>
+                        <div class="stat-number" id="totalSessions">12</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">👥</div>
+                    <div class="stat-content">
+                        <h3>Étudiants</h3>
+                        <div class="stat-number" id="totalStudents">45</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">✅</div>
+                    <div class="stat-content">
+                        <h3>Taux Moyen</h3>
+                        <div class="stat-number" id="avgAttendance">87%</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📈</div>
+                    <div class="stat-content">
+                        <h3>Participation</h3>
+                        <div class="stat-number" id="avgParticipation">76%</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Liste des sessions -->
+            <div class="sessions-history">
+                <h3>📋 Sessions Passées</h3>
+                <div class="sessions-list">
+                    <!-- Session 1 -->
+                    <div class="session-card">
+                        <div class="session-header">
+                            <div class="session-info">
+                                <h4>Advanced Web Programming - AWP-G1</h4>
+                                <p>15 Janvier 2025 - 14:00 | Introduction à React</p>
+                            </div>
+                            <div class="session-stats">
+                                <span class="attendance-rate">92%</span>
+                                <span class="participation-rate">85%</span>
+                            </div>
+                        </div>
+                        <div class="session-actions">
+                            <button class="btn btn-primary btn-small" onclick="viewSessionDetails(1)">
+                                <span class="btn-icon">👁️</span>
+                                Voir Détails
+                            </button>
+                            <button class="btn btn-info btn-small" onclick="exportSession(1)">
+                                <span class="btn-icon">📤</span>
+                                Exporter
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Session 2 -->
+                    <div class="session-card">
+                        <div class="session-header">
+                            <div class="session-info">
+                                <h4>Database Management - DBMS-G1</h4>
+                                <p>14 Janvier 2025 - 10:00 | Modèle relationnel</p>
+                            </div>
+                            <div class="session-stats">
+                                <span class="attendance-rate">88%</span>
+                                <span class="participation-rate">78%</span>
+                            </div>
+                        </div>
+                        <div class="session-actions">
+                            <button class="btn btn-primary btn-small" onclick="viewSessionDetails(2)">
+                                <span class="btn-icon">👁️</span>
+                                Voir Détails
+                            </button>
+                            <button class="btn btn-info btn-small" onclick="exportSession(2)">
+                                <span class="btn-icon">📤</span>
+                                Exporter
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Session 3 -->
+                    <div class="session-card">
+                        <div class="session-header">
+                            <div class="session-info">
+                                <h4>Software Engineering - SE-G1</h4>
+                                <p>13 Janvier 2025 - 16:00 | Méthodologies Agile</p>
+                            </div>
+                            <div class="session-stats">
+                                <span class="attendance-rate">95%</span>
+                                <span class="participation-rate">82%</span>
+                            </div>
+                        </div>
+                        <div class="session-actions">
+                            <button class="btn btn-primary btn-small" onclick="viewSessionDetails(3)">
+                                <span class="btn-icon">👁️</span>
+                                Voir Détails
+                            </button>
+                            <button class="btn btn-info btn-small" onclick="exportSession(3)">
+                                <span class="btn-icon">📤</span>
+                                Exporter
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/professor_attendance.js"></script>
+</body>
+</html>

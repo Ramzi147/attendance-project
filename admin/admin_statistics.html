@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistiques - Administration</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="admin-statistics">
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>📈 Statistiques</h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="admin_home.html" class="nav-link">Tableau de Bord</a></li>
+                <li class="nav-item"><a href="admin_statistics.html" class="nav-link active">Statistiques</a></li>
+                <li class="nav-item"><a href="admin_students.html" class="nav-link">Gestion Étudiants</a></li>
+                <li class="nav-item"><a href="../index.html" class="nav-link logout" onclick="logout()">Déconnexion</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="page-header">
+                <h1>Statistiques et Rapports</h1>
+                <p>Analyse des données de présence</p>
+            </div>
+
+            <!-- Statistiques globales -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">📚</div>
+                    <div class="stat-content">
+                        <h3>Cours Actifs</h3>
+                        <div class="stat-number">12</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">👨‍🏫</div>
+                    <div class="stat-content">
+                        <h3>Professeurs</h3>
+                        <div class="stat-number">8</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">✅</div>
+                    <div class="stat-content">
+                        <h3>Sessions ce Mois</h3>
+                        <div class="stat-number">156</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Graphiques -->
+            <div class="charts-section">
+                <h2>Graphiques de Présence</h2>
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <h3>Présence par Filière</h3>
+                        <div class="chart-placeholder">
+                            <div class="chart-bars">
+                                <div class="chart-bar" style="height: 80%; background: #3498db;" title="Informatique: 89%">
+                                    <span>Info: 89%</span>
+                                </div>
+                                <div class="chart-bar" style="height: 70%; background: #e74c3c;" title="Maths: 78%">
+                                    <span>Maths: 78%</span>
+                                </div>
+                                <div class="chart-bar" style="height: 65%; background: #f39c12;" title="Physique: 65%">
+                                    <span>Physique: 65%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="chart-card">
+                        <h3>Évolution Mensuelle</h3>
+                        <div class="chart-placeholder">
+                            <div class="trend-line">
+                                <div class="trend-point" style="left: 10%; bottom: 70%;" title="Sep: 82%"></div>
+                                <div class="trend-point" style="left: 30%; bottom: 75%;" title="Oct: 85%"></div>
+                                <div class="trend-point" style="left: 50%; bottom: 80%;" title="Nov: 88%"></div>
+                                <div class="trend-point" style="left: 70%; bottom: 87%;" title="Dec: 87%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/admin.js"></script>
+</body>
+</html>

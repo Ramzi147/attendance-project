@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nouvelle Session - Professeur</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="professor-session">
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>➕ Nouvelle Session</h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="professor_home.html" class="nav-link">Accueil</a></li>
+                <li class="nav-item"><a href="professor_session.html" class="nav-link active">Nouvelle Session</a></li>
+                <li class="nav-item"><a href="professor_attendance.html" class="nav-link">Présences</a></li>
+                <li class="nav-item"><a href="#" class="nav-link logout" onclick="logout()">Déconnexion</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="page-header">
+                <h1>Créer une Nouvelle Session</h1>
+                <p>Démarrez une nouvelle session de prise de présence</p>
+            </div>
+
+            <div class="session-form-container">
+                <div class="form-card">
+                    <h3>📅 Configuration de la Session</h3>
+                    <form id="sessionForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="courseSelect">Cours *</label>
+                                <select id="courseSelect" required>
+                                    <option value="">Sélectionner un cours</option>
+                                    <option value="AWP">Advanced Web Programming</option>
+                                    <option value="DBMS">Database Management</option>
+                                    <option value="SE">Software Engineering</option>
+                                    <option value="CN">Computer Networks</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="groupSelect">Groupe *</label>
+                                <select id="groupSelect" required>
+                                    <option value="">Sélectionner un groupe</option>
+                                    <option value="AWP-G1">AWP-G1</option>
+                                    <option value="AWP-G2">AWP-G2</option>
+                                    <option value="DBMS-G1">DBMS-G1</option>
+                                    <option value="SE-G1">SE-G1</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="sessionDate">Date de la session *</label>
+                                <input type="date" id="sessionDate" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="sessionTime">Heure *</label>
+                                <input type="time" id="sessionTime" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="sessionTopic">Sujet du cours</label>
+                            <input type="text" id="sessionTopic" placeholder="Ex: Introduction à React, Bases de données relationnelles...">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="sessionNotes">Notes supplémentaires</label>
+                            <textarea id="sessionNotes" placeholder="Notes optionnelles pour cette session..." rows="3"></textarea>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">
+                                <span class="btn-icon">🚀</span>
+                                Démarrer la Session
+                            </button>
+                            <button type="button" class="btn btn-secondary" onclick="goBack()">
+                                <span class="btn-icon">←</span>
+                                Retour
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="session-preview">
+                    <h3>📋 Aperçu de la Session</h3>
+                    <div class="preview-card">
+                        <div class="preview-item">
+                            <strong>Cours:</strong>
+                            <span id="previewCourse">-</span>
+                        </div>
+                        <div class="preview-item">
+                            <strong>Groupe:</strong>
+                            <span id="previewGroup">-</span>
+                        </div>
+                        <div class="preview-item">
+                            <strong>Date:</strong>
+                            <span id="previewDate">-</span>
+                        </div>
+                        <div class="preview-item">
+                            <strong>Heure:</strong>
+                            <span id="previewTime">-</span>
+                        </div>
+                        <div class="preview-item">
+                            <strong>Sujet:</strong>
+                            <span id="previewTopic">-</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/professor_session.js"></script>
+</body>
+</html>

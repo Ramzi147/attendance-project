@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Système de Présence - Université d'Alger</title>
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body class="login-page">
+    <div class="login-container">
+        <div class="login-header">
+            <div class="university-logo">
+                <div class="logo-icon">🎓</div>
+                <h1>Université d'Alger</h1>
+            </div>
+            <h2>Système de Gestion des Présences</h2>
+        </div>
+
+        <div class="role-selection">
+            <h3>Choisissez votre profil</h3>
+            <div class="role-buttons">
+                <button class="role-btn student-btn" onclick="showLoginForm('student')">
+                    <div class="role-icon">🎓</div>
+                    <div class="role-info">
+                        <span class="role-title">Étudiant</span>
+                        <span class="role-desc">Consulter mes présences</span>
+                    </div>
+                </button>
+                
+                <button class="role-btn professor-btn" onclick="showLoginForm('professor')">
+                    <div class="role-icon">👨‍🏫</div>
+                    <div class="role-info">
+                        <span class="role-title">Professeur</span>
+                        <span class="role-desc">Gérer les présences</span>
+                    </div>
+                </button>
+                
+                <button class="role-btn admin-btn" onclick="showLoginForm('admin')">
+                    <div class="role-icon">⚙️</div>
+                    <div class="role-info">
+                        <span class="role-title">Administrateur</span>
+                        <span class="role-desc">Gestion du système</span>
+                    </div>
+                </button>
+            </div>
+        </div>
+
+        <!-- Formulaire de connexion -->
+        <form id="loginForm" class="login-form" style="display: none;">
+            <h3 id="formTitle">Connexion</h3>
+            
+            <div class="form-group">
+                <label for="user_id">ID:</label>
+                <input type="text" id="user_id" name="user_id" placeholder="Votre ID" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="last_name">Nom:</label>
+                <input type="text" id="last_name" name="last_name" placeholder="Votre nom" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="first_name">Prénom:</label>
+                <input type="text" id="first_name" name="first_name" placeholder="Votre prénom" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="ex: nom@univ-alger.dz" required>
+            </div>
+            
+            <input type="hidden" id="userRole" name="role">
+            
+            <button type="submit" class="btn-login">Accéder au système</button>
+            
+            <div class="login-actions">
+                <button type="button" class="btn-back" onclick="goBackToRoleSelection()">
+                    ← Changer de profil
+                </button>
+            </div>
+        </form>
+
+        <div id="loginMessage" class="message" style="display: none;"></div>
+    </div>
+
+    <script src="js/login.js"></script>
+</body>
+</html>

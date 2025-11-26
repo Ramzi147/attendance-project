@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Espace Étudiant - Université d'Alger</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body class="student-dashboard">
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>🎓 Espace Étudiant</h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="student_home.html" class="nav-link active">Accueil</a></li>
+                <li class="nav-item"><a href="student_attendance.html" class="nav-link">Mes Présences</a></li>
+                <li class="nav-item"><a href="#" class="nav-link logout" onclick="logout()">Déconnexion</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="dashboard-header">
+                <h1>Bienvenue, <span id="studentName">Étudiant</span> !</h1>
+                <div class="student-info">
+                    <div class="info-card">
+                        <span class="info-label">Matricule:</span>
+                        <span class="info-value" id="studentMatricule">-</span>
+                    </div>
+                    <div class="info-card">
+                        <span class="info-label">Groupe:</span>
+                        <span class="info-value">AWP-G1</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Barre de recherche -->
+            <div class="search-container">
+                <div class="search-box">
+                    <input type="text" id="studentSearch" placeholder="🔍 Rechercher un étudiant par nom ou matricule...">
+                    <button class="clear-search" onclick="clearSearch()">✕</button>
+                </div>
+            </div>
+
+            <!-- Tableau de présence de l'étudiant -->
+            <section class="attendance-section">
+                <h2>Tableau de Présence de la Classe</h2>
+                
+                <div class="controls">
+                    <button id="highlightExcellent" class="btn">🌟 Surligner les Excellents</button>
+                    <button id="resetColors" class="btn">🔄 Reset Couleurs</button>
+                </div>
+
+                <div class="table-container">
+                    <table id="studentAttendanceTable" class="attendance-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nom</th>
+                                <th>Prénom</th>
+                                <th>S1</th><th>P1</th>
+                                <th>S2</th><th>P2</th>
+                                <th>S3</th><th>P3</th>
+                                <th>S4</th><th>P4</th>
+                                <th>S5</th><th>P5</th>
+                                <th>S6</th><th>P6</th>
+                                <th>Absences</th>
+                                <th>Participations</th>
+                                <th>Message</th>
+                            </tr>
+                        </thead>
+                        <tbody id="attendanceTableBody">
+                            <!-- Rempli dynamiquement -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script src="../js/student.js"></script>
+</body>
+</html>
